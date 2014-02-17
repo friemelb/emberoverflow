@@ -54,3 +54,21 @@ test("quesion links on index page lead to questions", function() {
     );
   });
 });
+
+test("user will be able to log in", function() {
+  delete localStorage['currentUser'];
+  App.set('currentUser', undefined);
+
+  visit("/sign-in");
+
+  fillIn(".form-control", "tomster@hamster.com");
+  click("button");
+
+  andThen(function() {
+    equal(
+      find("p").text(),
+      "You are already signed-in!",
+      "Signed-in message rendered"
+    );
+  });
+});
